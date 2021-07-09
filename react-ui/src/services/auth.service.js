@@ -1,9 +1,14 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth/";
+let URL_API = "";
+const isDev = process.env.NODE_ENV !== "production";
+
+!isDev
+  ? (URL_API = process.env.REACT_APP_URL_API_DEV)
+  : (URL_API = process.env.REACT_APP_URL_API);
 
 const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
+  return axios.post(URL_API + "/auth/signup", {
     username,
     email,
     password,
@@ -12,7 +17,7 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
   return axios
-    .post(API_URL + "signin", {
+    .post(URL_API + "/auth/signin", {
       username,
       password,
     })
