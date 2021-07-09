@@ -25,11 +25,7 @@ if (!isDev && cluster.isMaster) {
 } else {
   const app = express();
 
-  app.use(
-    cors({
-      origin: `http://localhost:${PORT}`,
-    })
-  );
+  app.use(cors());
 
   app.use(logger("dev"));
   app.use(express.json());
