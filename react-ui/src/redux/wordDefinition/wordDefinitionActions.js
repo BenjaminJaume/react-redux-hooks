@@ -1,8 +1,8 @@
 import wordDefinitionTypes from "./wordDefinitionTypes";
 import axios from "axios";
 
-const API_BACKEND = "http://localhost:5000/api";
-const API_DICTIONARY_URL = "https://api.dictionaryapi.dev/api/v2/entries/";
+const URL_API = process.env.REACT_APP_URL_API;
+const URL_API_DICTIONARY = process.env.REACT_APP_URL_API_DICTIONARY;
 
 export const fetchDataRequest = () => {
   return {
@@ -33,7 +33,7 @@ export const fetchWordDefinition = (language, word) => {
     return (dispatch) => {
       dispatch(fetchDataRequest());
       axios
-        .get(API_DICTIONARY_URL + language + "/" + word)
+        .get(URL_API_DICTIONARY + language + "/" + word)
         .then((response) => {
           dispatch(fetchDataSuccess(response.data));
         })
@@ -61,7 +61,7 @@ export const addFavoriteWord = (word, partOfSpeech, def, language, userId) => {
     dispatch(addFavoriteWordRequested());
 
     axios
-      .post(API_BACKEND + "/create-word", {
+      .post(URL_API + "/create-word", {
         word,
         partOfSpeech,
         definition,
@@ -105,7 +105,7 @@ export const removeFavoriteWord = (wordId, userId) => {
     dispatch(removeFavoriteWordRequested());
 
     axios
-      .post(API_BACKEND + "/remove-word/" + wordId, {
+      .post(URL_API + "/remove-word/" + wordId, {
         wordId,
         userId,
       })
@@ -145,7 +145,7 @@ export const getAllUserFavoriteWords = (userId) => {
     dispatch(getAllUserFavoriteWordsRequested());
 
     axios
-      .get(API_BACKEND + "/get-favorites/" + userId)
+      .get(URL_API + "/get-favorites/" + userId)
       .then((response) => {
         dispatch(getAllUserFavoriteWordsSuccess(response.data));
       })
