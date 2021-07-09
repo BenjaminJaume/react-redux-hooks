@@ -5,15 +5,15 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/db.config.js")["production"];
+const config = require(__dirname + "/../config/db.config.js")[env];
 const db = {};
 
 let sequelize;
 if (env === "production") {
-  if (config.use_env_variable === "") {
+  if (config.use_env_variable) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config);
   } else {
-    throw new Error("Please include the dabatase URL in the '.env' file");
+    console.error("Please include the dabatase URL in the '.env' file");
   }
 } else {
   sequelize = new Sequelize(
