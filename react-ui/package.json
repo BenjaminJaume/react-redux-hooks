@@ -23,6 +23,7 @@
     "react-scripts": "^2.1.8",
     "react-validation": "^3.0.7",
     "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "validator": "^13.6.0",
     "web-vitals": "^2.1.0"
@@ -45,7 +46,6 @@
   ],
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6"
   }
 }
