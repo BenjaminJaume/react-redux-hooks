@@ -7,10 +7,8 @@ npm-debug.log
 *.dev
 .DS_Store
 .prettierrc
-server-old
-server-old/
-/server-old
-/server-old/
+help.md
+svr-old
 
 # Docker
 Dockerfile

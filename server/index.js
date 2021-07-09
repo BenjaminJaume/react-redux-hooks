@@ -36,28 +36,6 @@ if (!isDev && cluster.isMaster) {
   require("./routes/user.routes")(app);
   require("./routes/favoriteWords.routes")(app);
 
-  (async () => {
-    // const db = require("./models");
-    // await db.sequelize.sync();
-    // await db.User.sync({ force: true });
-    // await db.usersFavoriteWords.sync({ force: true });
-    // await db.favoriteWord.sync({ force: true });
-    // // Defining the roles
-    // const Role = db.Role;
-    // Role.create({
-    //   id: 1,
-    //   name: "user",
-    // });
-    // Role.create({
-    //   id: 2,
-    //   name: "moderator",
-    // });
-    // Role.create({
-    //   id: 3,
-    //   name: "admin",
-    // });
-  })();
-
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
