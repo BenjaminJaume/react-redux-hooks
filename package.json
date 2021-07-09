@@ -8,8 +8,7 @@
   "scripts": {
     "start": "node server",
     "start:dev": "nodemon server --ignore react-ui/",
-    "build": "cd react-ui/ && npm install && npm run build",
-    "heroku-postbuild": "cd react-ui && npm install && npm install --only=dev --no-shrinkwrap && npm run build && mv -v build/ .. && cd .. && mv build public"
+    "build": "cd react-ui/ && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
