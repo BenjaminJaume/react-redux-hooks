@@ -5,19 +5,24 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
+const isDev = process.env.NODE_ENV !== "production";
 const config = require(__dirname + "/../config/db.config.js")[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(config.use_env_variable, config);
-} else {
+if (isDev) {
   sequelize = new Sequelize(
     config.database,
     config.username,
     config.password,
     config
   );
+} else {
+  if (config.url) {
+    sequelize = new Sequelize(config.url, config);
+  } else {
+    console.error("Please include the dabatase URL in the '.env' file");
+  }
 }
 
 fs.readdirSync(__dirname)
@@ -43,29 +48,31 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.user = require("./user.js")(sequelize, Sequelize);
+db.role = require("./role.js")(sequelize, Sequelize);
+db.favoriteWord = require("./favoriteWord.js")(sequelize, Sequelize);
+db.usersRoles = require("./usersRoles.js")(sequelize, Sequelize);
+db.usersFavoriteWords = require("./usersFavoriteWords.js")(
+  sequelize,
+  Sequelize
+);
+
+// Definition tables' relationships
 // Many users can have many role
-db.Role.belongsToMany(db.User, {
+db.role.belongsToMany(db.user, {
   through: "users_roles",
-  foreignKey: "RoleId",
-  otherKey: "UserId",
+  foreignKey: "roleId",
+  otherKey: "userId",
 });
-db.User.belongsToMany(db.Role, {
+db.user.belongsToMany(db.role, {
   through: "users_roles",
-  foreignKey: "UserId",
-  otherKey: "RoleId",
+  foreignKey: "userId",
+  otherKey: "roleId",
 });
 
 // Many users can have many favorite words
-db.FavoriteWord.belongsToMany(db.User, {
-  through: "users_favoritewords",
-  foreignKey: "FavoriteWordId",
-  otherKey: "UserId",
-});
-db.User.belongsToMany(db.FavoriteWord, {
-  through: "users_favoritewords",
-  foreignKey: "UserId",
-  otherKey: "FavoriteWordId",
-});
+
+// End definition tables' relationships
 
 db.ROLES = ["user", "moderator", "admin"];
 

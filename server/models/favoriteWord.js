@@ -1,34 +1,31 @@
-module.exports = (sequelize, Sequelize) => {
-  const FavoriteWord = sequelize.define("favorite_word", {
-    word: {
-      type: Sequelize.STRING,
-      allowNull: false,
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class FavoriteWord extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      FavoriteWord.belongsToMany(models.User, {
+        foreignKey: "UserdId",
+        through: "users_favoritewords",
+      });
+    }
+  }
+  FavoriteWord.init(
+    {
+      word: DataTypes.STRING,
+      language: DataTypes.STRING,
+      partOfSpeech: DataTypes.STRING,
+      definition: DataTypes.STRING,
+      example: DataTypes.STRING,
     },
-    language: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    partOfSpeech: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    definition: {
-      type: Sequelize.STRING(1000),
-      allowNull: false,
-    },
-    example: {
-      type: Sequelize.STRING(1000),
-      allowNull: true,
-    },
-  });
-
-  FavoriteWord.associate = (models) => {
-    FavoriteWord.belongsToMany(models.users, {
-      through: models.users_favorite_words,
-      foreignKey: "id",
-      onDelete: "CASDADE",
-    });
-  };
-
+    {
+      sequelize,
+      modelName: "FavoriteWord",
+    }
+  );
   return FavoriteWord;
 };

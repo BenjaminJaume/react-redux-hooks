@@ -40,10 +40,9 @@ const UserFavoriteWords = () => {
   );
 
   useEffect(() => {
-    if (currentUser && dataAllFavoriteWords.length === 0) {
+    if (currentUser) {
       dispatch(getAllUserFavoriteWords(currentUser.id));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!currentUser) {
@@ -62,53 +61,54 @@ const UserFavoriteWords = () => {
             <Col>
               {dataAllFavoriteWords.map((data, index) => (
                 <div key={index}>
-                  {data.favorite_words.map((fav, i) => (
-                    <div key={i}>
-                      <div className="d-flex justify-content-center text-center">
-                        <h1>
-                          <ReactCountryFlag
-                            countryCode={
-                              countryFlags[
-                                languagesAPI.findIndex(
-                                  (el) => el === fav.language
-                                )
-                              ]
-                            }
-                            svg
-                            style={{
-                              fontSize: "0.5em",
-                            }}
-                            className="mr-2"
-                          />
-                          {fav.word}
-                        </h1>
-                        <Button
-                          variant="danger"
-                          onClick={() =>
-                            dispatch(removeFavoriteWord(fav.id, currentUser.id))
-                          }
-                          className="ml-5"
-                        >
-                          <FontAwesomeIcon
-                            className="text-light mr-2"
-                            icon={faTimes}
-                          />
-                          Remove
-                        </Button>
-                      </div>
+                  <div className="d-flex justify-content-center text-center">
+                    <h1>
+                      <ReactCountryFlag
+                        countryCode={
+                          countryFlags[
+                            languagesAPI.findIndex(
+                              (el) => el === data.FavoriteWord.language
+                            )
+                          ]
+                        }
+                        svg
+                        style={{
+                          fontSize: "0.5em",
+                        }}
+                        className="mr-2"
+                      />
+                      {data.FavoriteWord.word}
+                    </h1>
+                    <Button
+                      variant="danger"
+                      onClick={() =>
+                        dispatch(
+                          removeFavoriteWord(
+                            data.FavoriteWord.id,
+                            currentUser.id
+                          )
+                        )
+                      }
+                      className="ml-5"
+                    >
+                      <FontAwesomeIcon
+                        className="text-light mr-2"
+                        icon={faTimes}
+                      />
+                      Remove
+                    </Button>
+                  </div>
 
-                      <p>
-                        <u className="text-success">Definition:</u>{" "}
-                        {fav.definition}
-                      </p>
-                      {fav.example ? (
-                        <p>
-                          <u className="text-danger">Example:</u>{" "}
-                          <cite>"{fav.example}"</cite>
-                        </p>
-                      ) : null}
-                    </div>
-                  ))}
+                  <p>
+                    <u className="text-success">Definition:</u>{" "}
+                    {data.FavoriteWord.definition}
+                  </p>
+                  {data.FavoriteWord.example ? (
+                    <p>
+                      <u className="text-danger">Example:</u>{" "}
+                      <cite>"{data.FavoriteWord.example}"</cite>
+                    </p>
+                  ) : null}
                 </div>
               ))}
             </Col>

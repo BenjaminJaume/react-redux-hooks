@@ -121,7 +121,7 @@ const wordDefinitionReducer = (state = initialState, action) => {
       return {
         ...state,
         loadingAllFavoriteWords: false,
-        dataAllFavoriteWords: false,
+        dataAllFavoriteWords: [],
         successFetchAllFavoriteWords: false,
         errorGetAllFavoriteWords: action.payload,
       };

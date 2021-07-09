@@ -77,15 +77,14 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (currentUser && dataAllFavoriteWords.length === 0) {
+    if (currentUser) {
       dispatch(getAllUserFavoriteWords(currentUser.id));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const displayButtonFavorites = (meaning, definition) => {
     let result = dataAllFavoriteWords.find(
-      (word) => word.favorite_words[0].definition === definition.definition
+      (word) => word.FavoriteWord.definition === definition.definition
     );
 
     if (
@@ -103,7 +102,7 @@ const Home = () => {
             variant="white"
             onClick={() =>
               dispatch(
-                removeFavoriteWord(result.favorite_word_id, currentUser.id)
+                removeFavoriteWord(result.FavoriteWordId, currentUser.id)
               )
             }
           >

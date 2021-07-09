@@ -39,11 +39,11 @@ if (!isDev && cluster.isMaster) {
   (async () => {
     // const db = require("./models");
     // await db.sequelize.sync();
-    // await db.User.sync({ force: true });
+    // await db.user.sync({ force: true });
     // await db.usersFavoriteWords.sync({ force: true });
     // await db.favoriteWord.sync({ force: true });
     // // Defining the roles
-    // const Role = db.Role;
+    // const Role = db.role;
     // Role.create({
     //   id: 1,
     //   name: "user",
