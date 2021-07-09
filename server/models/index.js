@@ -18,8 +18,8 @@ if (isDev) {
     config
   );
 } else {
-  if (config.use_env_variable) {
-    sequelize = new Sequelize(config.use_env_variable, config);
+  if (config.url) {
+    sequelize = new Sequelize(config.url, config);
   } else {
     console.error("Please include the dabatase URL in the '.env' file");
   }

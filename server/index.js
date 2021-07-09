@@ -4,7 +4,6 @@ const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const logger = require("morgan");
 const cors = require("cors");
-// const db = require("./models");
 
 const isDev = process.env.NODE_ENV !== "production";
 const PORT = process.env.PORT || 5000;
@@ -28,7 +27,7 @@ if (!isDev && cluster.isMaster) {
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: `http://localhost:${PORT}`,
     })
   );
 
