@@ -26,7 +26,6 @@ module.exports = {
       },
       example: {
         type: Sequelize.STRING(1000),
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,
