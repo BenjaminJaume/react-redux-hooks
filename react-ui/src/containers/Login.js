@@ -116,7 +116,7 @@ const Login = (props) => {
                     role="status"
                     as="span"
                     aria-hidden="false"
-                    className="align-middle mr-2"
+                    className="align-middle me-2"
                     size="sm"
                   >
                     <span className="sr-only">Loading...</span>

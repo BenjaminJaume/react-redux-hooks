@@ -5,13 +5,13 @@ import { Container } from "react-bootstrap";
 
 // import UserService from "../services/user.service";
 
-const Admin = () => {
+const Moderator = () => {
   const { isLoggedIn, user: currentUser } = useSelector((state) => state.user);
 
-  // Get data from the server for the Admin Board
+  // Get data from the server for the Moderator Board
   // const [content, setContent] = useState("");
   // useEffect(() => {
-  //   UserService.getAdminBoard().then(
+  //   UserService.getModeratorBoard().then(
   //     (response) => {
   //       setContent(response.data);
   //     },
@@ -32,11 +32,11 @@ const Admin = () => {
     return <Redirect to="/" />;
   }
 
-  if (currentUser.isAdmin) {
-    return <Container>Admin content</Container>;
+  if (currentUser.isModo || currentUser.isAdmin) {
+    return <Container>Modo content</Container>;
   }
 
   return <Redirect to="/" />;
 };
 
-export default Admin;
+export default Moderator;

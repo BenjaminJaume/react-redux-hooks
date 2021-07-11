@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,36 +15,21 @@ import {
 import { logout } from "../redux";
 
 function NavigationBar() {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-
   const { user: currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
-    } else {
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
-    }
-  }, [currentUser]);
-
   const logOut = () => {
-    setShowModeratorBoard(false);
-    setShowAdminBoard(false);
     dispatch(logout());
   };
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" className="px-1 px-sm-2 px-md-3 px-lg-5">
       <Navbar.Collapse id="navigation-bar">
         <Nav className="w-100 justify-content-around align-items-baseline">
           <IndexLinkContainer to="/" href="/">
             <Nav.Link className="text-center">
               <FontAwesomeIcon
-                className="text-primary mr-2"
+                className="text-primary me-2"
                 icon={faSpellCheck}
               />
               Home
@@ -56,7 +41,7 @@ function NavigationBar() {
               <IndexLinkContainer to="/jokes" href="/jokes">
                 <Nav.Link className="text-center">
                   <FontAwesomeIcon
-                    className="text-danger mr-2"
+                    className="text-danger me-2"
                     icon={faTheaterMasks}
                   />
                   Jokes
@@ -66,7 +51,7 @@ function NavigationBar() {
               <IndexLinkContainer to="/my-favorites" href="/my-favorites">
                 <Nav.Link className="text-center">
                   <FontAwesomeIcon
-                    className="text-warning mr-2"
+                    className="text-warning me-2"
                     icon={faStar}
                   />
                   My Favorite Words
@@ -75,11 +60,11 @@ function NavigationBar() {
             </>
           )}
 
-          {showModeratorBoard && !showAdminBoard && (
+          {currentUser && currentUser.isModo && !currentUser.isAdmin && (
             <IndexLinkContainer to="/mod" href="/mod">
               <Nav.Link className="text-center">
                 <FontAwesomeIcon
-                  className="text-success mr-2"
+                  className="text-success me-2"
                   icon={faUserShield}
                 />
                 Moderator
@@ -87,7 +72,7 @@ function NavigationBar() {
             </IndexLinkContainer>
           )}
 
-          {showModeratorBoard && showAdminBoard && (
+          {currentUser && currentUser.isModo && currentUser.isAdmin && (
             <NavDropdown title="Settings" id="dropdownRoles">
               <IndexLinkContainer to="/mod" href="/mod">
                 <NavDropdown.Item>Moderator</NavDropdown.Item>
@@ -100,10 +85,10 @@ function NavigationBar() {
           )}
 
           {currentUser ? (
-            <Navbar className="navbar-nav ml-auto">
+            <Navbar className="navbar-nav ms-auto">
               <IndexLinkContainer to="/profile" href="/profile">
                 <Nav.Link className="text-center">
-                  <FontAwesomeIcon className="text-light mr-2" icon={faUser} />
+                  <FontAwesomeIcon className="text-light me-2" icon={faUser} />
                   {currentUser.username}
                 </Nav.Link>
               </IndexLinkContainer>
@@ -111,7 +96,7 @@ function NavigationBar() {
               <IndexLinkContainer to="/" href="/">
                 <Button onClick={logOut} variant="danger" size="sm">
                   <FontAwesomeIcon
-                    className="text-light mr-2"
+                    className="text-light me-2"
                     icon={faPowerOff}
                   />
                   Logout
@@ -119,7 +104,7 @@ function NavigationBar() {
               </IndexLinkContainer>
             </Navbar>
           ) : (
-            <Navbar className="navbar-nav ml-auto">
+            <Navbar className="navbar-nav ms-auto">
               <IndexLinkContainer to="/login" href="/login">
                 <Nav.Link className="text-center">Login</Nav.Link>
               </IndexLinkContainer>

@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 
 module.exports = {
   development: {
@@ -7,6 +8,7 @@ module.exports = {
     username: process.env.DATABASE_USERNAME,
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASSWORD,
+    admin_password: process.env.ADMIN_PASSWORD,
     dialect: "postgres",
   },
   production: {

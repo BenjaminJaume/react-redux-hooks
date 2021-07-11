@@ -75,7 +75,7 @@ const UserFavoriteWords = () => {
                         style={{
                           fontSize: "0.5em",
                         }}
-                        className="mr-2"
+                        className="me-2"
                       />
                       {data.FavoriteWord.word}
                     </h1>
@@ -89,10 +89,10 @@ const UserFavoriteWords = () => {
                           )
                         )
                       }
-                      className="ml-5"
+                      className="ms-5"
                     >
                       <FontAwesomeIcon
-                        className="text-light mr-2"
+                        className="text-light me-2"
                         icon={faTimes}
                       />
                       Remove

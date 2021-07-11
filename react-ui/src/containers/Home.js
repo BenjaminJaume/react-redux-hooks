@@ -160,7 +160,7 @@ const Home = () => {
                 style={{ textAlign: "center" }}
                 defaultValue={word}
               />
-              <InputGroup.Append>
+              <>
                 {!word || !selectedLanguage ? (
                   <Button variant="success" disabled>
                     Search word
@@ -178,7 +178,7 @@ const Home = () => {
                         role="status"
                         as="span"
                         aria-hidden="true"
-                        className="align-middle mr-2"
+                        className="align-middle me-2"
                         size="sm"
                       >
                         <span className="sr-only">Loading...</span>
@@ -187,7 +187,7 @@ const Home = () => {
                     Search word
                   </Button>
                 )}
-              </InputGroup.Append>
+              </>
             </InputGroup>
           </Col>
         </Row>
@@ -218,7 +218,7 @@ const Home = () => {
                           <ReactCountryFlag
                             countryCode={countryFlags[index]}
                             svg
-                            className="mr-2"
+                            className="me-2"
                           />
                           {language}
                         </>
@@ -307,7 +307,7 @@ const Home = () => {
           }}
         >
           <Toast.Header>
-            <strong className="mr-auto">Loading</strong>
+            <strong className="me-auto">Loading</strong>
           </Toast.Header>
           <Toast.Body>
             Your word is being added to your list of favorite word's definition
@@ -319,7 +319,6 @@ const Home = () => {
         <Toast
           onClose={() => dispatch(setShowToast(false))}
           show={showToast}
-          delay={5000}
           autohide
           style={{
             position: "absolute",
@@ -328,7 +327,7 @@ const Home = () => {
           }}
         >
           <Toast.Header>
-            <strong className="mr-auto">Loading</strong>
+            <strong className="me-auto">Loading</strong>
           </Toast.Header>
           <Toast.Body>
             Your word is being removed from your list of favorite word's

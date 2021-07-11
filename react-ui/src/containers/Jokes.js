@@ -98,7 +98,7 @@ function Jokes() {
                     role="status"
                     as="span"
                     aria-hidden="true"
-                    className="align-middle mr-2"
+                    className="align-middle me-2"
                     size="sm"
                   >
                     <span className="sr-only">Loading...</span>
@@ -111,19 +111,21 @@ function Jokes() {
           <Row className="my-5">
             <Col>
               {jokeError ? (
-                <Alert variant="danger">A problem occured: {jokeError}</Alert>
+                <Alert variant="danger">
+                  A problem occured: {jokeError.message || jokeError}
+                </Alert>
               ) : null}
               {isEmptyObject(joke) ? (
                 <Alert variant="success">
                   {joke.safe === false ? (
                     <p className="text-danger text-center font-weight-bold">
                       <FontAwesomeIcon
-                        className="text-danger mr-2"
+                        className="text-danger me-2"
                         icon={faExclamationTriangle}
                       />{" "}
                       NSFW{" "}
                       <FontAwesomeIcon
-                        className="text-danger mr-2"
+                        className="text-danger me-2"
                         icon={faExclamationTriangle}
                       />
                     </p>

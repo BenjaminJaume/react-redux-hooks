@@ -8,8 +8,8 @@ import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
 import Profile from "./containers/Profile";
 import UserFavoriteWords from "./containers/UserFavoriteWords";
-import BoardModerator from "./containers/BoardModerator";
-import BoardAdmin from "./containers/BoardAdmin";
+import Moderator from "./containers/Moderator";
+import Admin from "./containers/Admin";
 import Jokes from "./containers/Jokes";
 import Page404 from "./containers/Page404";
 
@@ -35,8 +35,8 @@ function App() {
 
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/admin" component={BoardAdmin} />
-        <Route exact path="/mod" component={BoardModerator} />
+        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/mod" component={Moderator} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/my-favorites" component={UserFavoriteWords} />
         <Route exact path="/jokes" component={Jokes} />
