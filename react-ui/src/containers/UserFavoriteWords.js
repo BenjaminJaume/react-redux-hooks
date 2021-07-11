@@ -2,16 +2,7 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUserFavoriteWords } from "../redux";
-import {
-  Container,
-  Row,
-  Col,
-  // ButtonGroup,
-  Button,
-  // ButtonToolbar,
-  // InputGroup,
-  // FormControl,
-} from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import ReactCountryFlag from "react-country-flag";
 import { removeFavoriteWord } from "../redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

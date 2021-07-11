@@ -86,8 +86,8 @@ exports.signin = (req, res) => {
           email: user.email,
           roles: authorities,
           accessToken: token,
-          isAdmin: isAdmin.name === "admin",
-          isModo: isModo.name === "moderator",
+          isAdmin: isAdmin ? isAdmin.name === "admin" : false,
+          isModo: isModo ? isModo.name === "moderator" : false,
         });
       });
     })

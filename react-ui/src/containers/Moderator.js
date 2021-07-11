@@ -1,12 +1,37 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Accordion,
+  InputGroup,
+  FormControl,
+  Button,
+} from "react-bootstrap";
+import { getUsersList } from "../redux";
+import dateformat from "dateformat";
 
-// import UserService from "../services/user.service";
-
+function formatDate(date) {
+  return dateformat(date, "dd/mm/yyyy");
+}
 const Moderator = () => {
   const { isLoggedIn, user: currentUser } = useSelector((state) => state.user);
+
+  const loadingUsersList = useSelector(
+    (state) => state.manage.loadingUsersList
+  );
+  const usersListData = useSelector((state) => state.manage.usersListData);
+  const usersListError = useSelector((state) => state.manage.usersListError);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getUsersList());
+    }
+  }, []);
 
   // Get data from the server for the Moderator Board
   // const [content, setContent] = useState("");
@@ -33,7 +58,57 @@ const Moderator = () => {
   }
 
   if (currentUser.isModo || currentUser.isAdmin) {
-    return <Container>Modo content</Container>;
+    return (
+      <Container className="my-5">
+        <Row>
+          <Col>
+            <h1 className="mb-5">List of users</h1>
+            {loadingUsersList ? (
+              <div>LOADING</div>
+            ) : (
+              <Accordion>
+                {usersListData.map((user, index) => (
+                  <Accordion.Item eventKey={index} key={index}>
+                    <Accordion.Header>{user.username}</Accordion.Header>
+                    <Accordion.Body>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text className="bg-light">
+                          ID
+                        </InputGroup.Text>
+                        <FormControl defaultValue={user.id} readOnly />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text className="bg-light">
+                          Since
+                        </InputGroup.Text>
+                        <FormControl
+                          defaultValue={formatDate(user.createdAt)}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text className="bg-light">
+                          Email
+                        </InputGroup.Text>
+                        <FormControl defaultValue={user.email} />
+                        <Button variant="success">Edit</Button>
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text className="bg-light">
+                          Role
+                        </InputGroup.Text>
+                        <FormControl defaultValue="Coming soon" readOnly />
+                        <Button variant="success">Edit</Button>
+                      </InputGroup>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                ))}
+              </Accordion>
+            )}
+            {usersListError ? <div>error</div> : null}
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 
   return <Redirect to="/" />;
