@@ -17,7 +17,7 @@ const getUserBoard = () => {
 };
 
 const getModeratorBoard = () => {
-  return axios.get(URL_API + "/mod", { headers: authHeader() });
+  return axios.get(URL_API + "/modo", { headers: authHeader() });
 };
 
 const getAdminBoard = () => {

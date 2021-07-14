@@ -1,38 +1,28 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUserFavoriteWords } from "../redux";
+import { getAllUserWords } from "../redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ReactCountryFlag from "react-country-flag";
-import { removeFavoriteWord } from "../redux";
+import { removeWord } from "../redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const UserFavoriteWords = () => {
-  const loadingAllFavoriteWords = useSelector(
-    (state) => state.wordDefinition.loadingAllFavoriteWords
-  );
-  const dataAllFavoriteWords = useSelector(
-    (state) => state.wordDefinition.dataAllFavoriteWords
-  );
-  const errorGetAllFavoriteWords = useSelector(
-    (state) => state.wordDefinition.errorGetAllFavoriteWords
-  );
+const UserWords = () => {
+  const loadingAllWords = useSelector((state) => state.word.loadingAllWords);
+  const dataAllWords = useSelector((state) => state.word.dataAllWords);
+  const errorGetAllWords = useSelector((state) => state.word.errorGetAllWords);
 
   const { user: currentUser } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
-  const languagesAPI = useSelector(
-    (state) => state.wordDefinition.languagesAPI
-  );
-  const countryFlags = useSelector(
-    (state) => state.wordDefinition.countryFlags
-  );
+  const languagesAPI = useSelector((state) => state.word.languagesAPI);
+  const countryFlags = useSelector((state) => state.word.countryFlags);
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(getAllUserFavoriteWords(currentUser.id));
+      dispatch(getAllUserWords(currentUser.id));
     }
   }, []);
 
@@ -41,7 +31,7 @@ const UserFavoriteWords = () => {
   } else {
     return (
       <Container className="my-5">
-        {loadingAllFavoriteWords ? (
+        {loadingAllWords ? (
           <Row>
             <Col>
               <h2 className="text-center">Loading</h2>
@@ -50,7 +40,7 @@ const UserFavoriteWords = () => {
         ) : (
           <Row>
             <Col>
-              {dataAllFavoriteWords.map((data, index) => (
+              {dataAllWords.map((data, index) => (
                 <div key={index}>
                   <div className="d-flex justify-content-center text-center">
                     <h1>
@@ -58,7 +48,7 @@ const UserFavoriteWords = () => {
                         countryCode={
                           countryFlags[
                             languagesAPI.findIndex(
-                              (el) => el === data.FavoriteWord.language
+                              (el) => el === data.Word.language
                             )
                           ]
                         }
@@ -68,17 +58,12 @@ const UserFavoriteWords = () => {
                         }}
                         className="me-2"
                       />
-                      {data.FavoriteWord.word}
+                      {data.Word.word}
                     </h1>
                     <Button
                       variant="danger"
                       onClick={() =>
-                        dispatch(
-                          removeFavoriteWord(
-                            data.FavoriteWord.id,
-                            currentUser.id
-                          )
-                        )
+                        dispatch(removeWord(data.Word.id, currentUser.id))
                       }
                       className="ms-5"
                     >
@@ -92,12 +77,12 @@ const UserFavoriteWords = () => {
 
                   <p>
                     <u className="text-success">Definition:</u>{" "}
-                    {data.FavoriteWord.definition}
+                    {data.Word.definition}
                   </p>
-                  {data.FavoriteWord.example ? (
+                  {data.Word.example ? (
                     <p>
                       <u className="text-danger">Example:</u>{" "}
-                      <cite>"{data.FavoriteWord.example}"</cite>
+                      <cite>"{data.Word.example}"</cite>
                     </p>
                   ) : null}
                 </div>
@@ -106,9 +91,9 @@ const UserFavoriteWords = () => {
           </Row>
         )}
         <div>
-          {errorGetAllFavoriteWords ? (
+          {errorGetAllWords ? (
             <p className="text-danger">
-              Error: {JSON.stringify(errorGetAllFavoriteWords)}
+              Error: {JSON.stringify(errorGetAllWords)}
             </p>
           ) : null}
         </div>
@@ -117,4 +102,4 @@ const UserFavoriteWords = () => {
   }
 };
 
-export default UserFavoriteWords;
+export default UserWords;

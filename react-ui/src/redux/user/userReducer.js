@@ -2,9 +2,23 @@ import userTypes from "./userTypes";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+const userAuthentification = user
+  ? {
+      isLoggedIn: true,
+      user,
+    }
+  : {
+      isLoggedIn: false,
+      user: null,
+    };
+
+const initialState = {
+  ...userAuthentification,
+  changeEmailForm: false,
+  loadingChangeEmail: false,
+  successChangeEmail: false,
+  messageChangeEmail: "",
+};
 
 function userReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -38,6 +52,42 @@ function userReducer(state = initialState, action) {
         isLoggedIn: false,
         user: null,
       };
+    case userTypes.CHANGE_EMAIL_FORM:
+      return {
+        ...state,
+        changeEmailForm: action.payload,
+        loadingChangeEmail: false,
+        successChangeEmail: false,
+        messageChangeEmail: "",
+      };
+    case userTypes.CHANGE_EMAIL_REQUEST:
+      return {
+        ...state,
+        loadingChangeEmail: true,
+        successChangeEmail: false,
+        messageChangeEmail: "",
+      };
+    case userTypes.CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        loadingChangeEmail: false,
+        successChangeEmail: action.payload.status,
+        messageChangeEmail: action.payload.message,
+        user: {
+          ...user,
+          email: action.payload.email,
+        },
+        changeEmailForm: false,
+      };
+    case userTypes.CHANGE_EMAIL_FAIL:
+      return {
+        ...state,
+        loadingChangeEmail: false,
+        successChangeEmail: action.payload.status,
+        messageChangeEmail: action.payload.message,
+        changeEmailForm: false,
+      };
+
     default:
       return state;
   }

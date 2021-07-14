@@ -13,6 +13,8 @@ const jokeReducer = (state = initialState, action) => {
       return {
         ...state,
         jokeLoading: true,
+        joke: {},
+        jokeError: "",
       };
 
     case jokeTypes.FETCH_JOKE_SUCCESS:

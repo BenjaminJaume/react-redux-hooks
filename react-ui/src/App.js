@@ -7,7 +7,7 @@ import Home from "./containers/Home";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
 import Profile from "./containers/Profile";
-import UserFavoriteWords from "./containers/UserFavoriteWords";
+import UserWords from "./containers/UserWords";
 import Moderator from "./containers/Moderator";
 import Admin from "./containers/Admin";
 import Jokes from "./containers/Jokes";
@@ -36,9 +36,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/admin" component={Admin} />
-        <Route exact path="/mod" component={Moderator} />
+        <Route exact path="/modo" component={Moderator} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/my-favorites" component={UserFavoriteWords} />
+        <Route exact path="/my-words" component={UserWords} />
         <Route exact path="/jokes" component={Jokes} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />

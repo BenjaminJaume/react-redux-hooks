@@ -9,6 +9,7 @@ import {
   InputGroup,
   FormControl,
   Button,
+  Alert,
 } from "react-bootstrap";
 import { getUsersList } from "../redux";
 import dateformat from "dateformat";
@@ -64,7 +65,7 @@ const Moderator = () => {
           <Col>
             <h1 className="mb-5">List of users</h1>
             {loadingUsersList ? (
-              <div>LOADING</div>
+              <div>Loading</div>
             ) : (
               <Accordion>
                 {usersListData.map((user, index) => (
@@ -104,7 +105,9 @@ const Moderator = () => {
                 ))}
               </Accordion>
             )}
-            {usersListError ? <div>error</div> : null}
+            {usersListError ? (
+              <Alert variant="danger">Couldn't load the users</Alert>
+            ) : null}
           </Col>
         </Row>
       </Container>

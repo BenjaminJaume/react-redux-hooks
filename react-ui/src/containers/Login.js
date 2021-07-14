@@ -77,8 +77,9 @@ const Login = (props) => {
   return (
     <Container className="my-5">
       <Row className="mb-5">
-        <Col>
-          <h1 className="text-warning text-center">Welcome back!</h1>
+        <Col className="text-center">
+          <h1 className="text-info">Welcome back</h1>
+          <p className="lead">Please login to access amazing features!</p>
         </Col>
       </Row>
       <Row>
@@ -87,7 +88,7 @@ const Login = (props) => {
             <FormBootstrap.Group>
               <Input
                 type="text"
-                className="form-control"
+                className="form-control mb-3"
                 name="username"
                 value={username}
                 placeholder="Username"
@@ -99,7 +100,7 @@ const Login = (props) => {
             <FormBootstrap.Group>
               <Input
                 type="password"
-                className="form-control"
+                className="form-control mb-3"
                 name="password"
                 value={password}
                 placeholder="Password"

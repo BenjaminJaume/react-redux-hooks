@@ -12,6 +12,8 @@ const manageReducer = (state = initialState, action) => {
       return {
         ...state,
         loadingUsersList: true,
+        usersListData: [],
+        usersListError: "",
       };
 
     case manageTypes.GET_USERS_LIST_SUCCESS:

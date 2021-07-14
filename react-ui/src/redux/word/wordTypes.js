@@ -20,7 +20,7 @@ const GET_ALL_USER_FAVORITE_WORD_FAIL = "GET_ALL_USER_FAVORITE_WORD_FAIL";
 
 const CHANGE_TOAST_STATE = "CHANGE_TOAST_STATE";
 
-const wordDefinitionTypes = {
+const wordTypes = {
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
   FETCH_DATA_FAIL,
@@ -39,4 +39,4 @@ const wordDefinitionTypes = {
   CHANGE_TOAST_STATE,
 };
 
-export default wordDefinitionTypes;
+export default wordTypes;

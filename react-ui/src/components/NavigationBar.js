@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,34 +48,34 @@ function NavigationBar() {
                 </Nav.Link>
               </IndexLinkContainer>
 
-              <IndexLinkContainer to="/my-favorites" href="/my-favorites">
+              <IndexLinkContainer to="/my-words" href="/my-words">
                 <Nav.Link className="text-center">
                   <FontAwesomeIcon
                     className="text-warning me-2"
                     icon={faStar}
                   />
-                  My Favorite Words
+                  My words
                 </Nav.Link>
               </IndexLinkContainer>
             </>
           )}
 
           {currentUser && currentUser.isModo && !currentUser.isAdmin && (
-            <IndexLinkContainer to="/mod" href="/mod">
+            <IndexLinkContainer to="/modo" href="/modo">
               <Nav.Link className="text-center">
                 <FontAwesomeIcon
                   className="text-success me-2"
                   icon={faUserShield}
                 />
-                Moderator
+                Modo
               </Nav.Link>
             </IndexLinkContainer>
           )}
 
           {currentUser && currentUser.isModo && currentUser.isAdmin && (
             <NavDropdown title="Settings" id="dropdownRoles">
-              <IndexLinkContainer to="/mod" href="/mod">
-                <NavDropdown.Item>Moderator</NavDropdown.Item>
+              <IndexLinkContainer to="/modo" href="/modo">
+                <NavDropdown.Item>Modo</NavDropdown.Item>
               </IndexLinkContainer>
 
               <IndexLinkContainer to="/admin" href="/admin">

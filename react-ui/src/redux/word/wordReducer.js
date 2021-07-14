@@ -1,4 +1,4 @@
-import wordDefinitionTypes from "./wordDefinitionTypes";
+import wordTypes from "./wordTypes";
 
 const initialState = {
   languages: ["US English", "Español", "Français"],
@@ -17,25 +17,27 @@ const initialState = {
   successRemoveWord: false,
   errorRemoveWord: "",
 
-  loadingAllFavoriteWords: false,
-  successFetchAllFavoriteWords: false,
-  dataAllFavoriteWords: [],
-  errorGetAllFavoriteWords: "",
+  loadingAllWords: false,
+  successFetchAllWords: false,
+  dataAllWords: [],
+  errorGetAllWords: "",
 
   selectedLanguage: "",
   word: "",
   showToast: false,
 };
 
-const wordDefinitionReducer = (state = initialState, action) => {
+const wordReducer = (state = initialState, action) => {
   switch (action.type) {
-    case wordDefinitionTypes.FETCH_DATA_REQUEST:
+    case wordTypes.FETCH_DATA_REQUEST:
       return {
         ...state,
         loading: true,
+        data: [],
+        error: "",
       };
 
-    case wordDefinitionTypes.FETCH_DATA_SUCCESS:
+    case wordTypes.FETCH_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -43,7 +45,7 @@ const wordDefinitionReducer = (state = initialState, action) => {
         error: "",
       };
 
-    case wordDefinitionTypes.FETCH_DATA_FAIL:
+    case wordTypes.FETCH_DATA_FAIL:
       return {
         ...state,
         loading: false,
@@ -51,14 +53,16 @@ const wordDefinitionReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case wordDefinitionTypes.ADD_FAVORITE_WORD_REQUEST:
+    case wordTypes.ADD_FAVORITE_WORD_REQUEST:
       return {
         ...state,
         loadingAddWord: true,
         setShowToast: true,
+        successAddWord: false,
+        errorAddWord: "",
       };
 
-    case wordDefinitionTypes.ADD_FAVORITE_WORD_SUCCESS:
+    case wordTypes.ADD_FAVORITE_WORD_SUCCESS:
       return {
         ...state,
         loadingAddWord: false,
@@ -67,7 +71,7 @@ const wordDefinitionReducer = (state = initialState, action) => {
         setShowToast: true,
       };
 
-    case wordDefinitionTypes.ADD_FAVORITE_WORD_FAIL:
+    case wordTypes.ADD_FAVORITE_WORD_FAIL:
       return {
         ...state,
         loadingAddWord: false,
@@ -76,14 +80,16 @@ const wordDefinitionReducer = (state = initialState, action) => {
         setShowToast: true,
       };
 
-    case wordDefinitionTypes.REMOVE_FAVORITE_WORD_REQUEST:
+    case wordTypes.REMOVE_FAVORITE_WORD_REQUEST:
       return {
         ...state,
         loadingRemoveWord: true,
         setShowToast: true,
+        successRemoveWord: false,
+        errorRemoveWord: "",
       };
 
-    case wordDefinitionTypes.REMOVE_FAVORITE_WORD_SUCCESS:
+    case wordTypes.REMOVE_FAVORITE_WORD_SUCCESS:
       return {
         ...state,
         loadingRemoveWord: false,
@@ -92,7 +98,7 @@ const wordDefinitionReducer = (state = initialState, action) => {
         setShowToast: true,
       };
 
-    case wordDefinitionTypes.REMOVE_FAVORITE_WORD_FAIL:
+    case wordTypes.REMOVE_FAVORITE_WORD_FAIL:
       return {
         ...state,
         loadingRemoveWord: false,
@@ -102,53 +108,56 @@ const wordDefinitionReducer = (state = initialState, action) => {
       };
 
     // Get user's favorite words
-    case wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_REQUEST:
+    case wordTypes.GET_ALL_USER_FAVORITE_WORD_REQUEST:
       return {
         ...state,
-        loadingAllFavoriteWords: true,
+        loadingAllWords: true,
+        successFetchAllWords: false,
+        dataAllWords: [],
+        errorGetAllWords: "",
       };
 
-    case wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_SUCCESS:
+    case wordTypes.GET_ALL_USER_FAVORITE_WORD_SUCCESS:
       return {
         ...state,
-        loadingAllFavoriteWords: false,
-        successFetchAllFavoriteWords: true,
-        dataAllFavoriteWords: action.payload,
-        errorGetAllFavoriteWords: "",
+        loadingAllWords: false,
+        successFetchAllWords: true,
+        dataAllWords: action.payload,
+        errorGetAllWords: "",
       };
 
-    case wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_FAIL:
+    case wordTypes.GET_ALL_USER_FAVORITE_WORD_FAIL:
       return {
         ...state,
-        loadingAllFavoriteWords: false,
-        dataAllFavoriteWords: [],
-        successFetchAllFavoriteWords: false,
-        errorGetAllFavoriteWords: action.payload,
+        loadingAllWords: false,
+        dataAllWords: [],
+        successFetchAllWords: false,
+        errorGetAllWords: action.payload,
       };
 
     // Change selected language
-    case wordDefinitionTypes.CHANGE_SELECTED_LANGUAGE:
+    case wordTypes.CHANGE_SELECTED_LANGUAGE:
       return {
         ...state,
         selectedLanguage: action.payload,
       };
 
-    case wordDefinitionTypes.CHANGE_WORD:
+    case wordTypes.CHANGE_WORD:
       return {
         ...state,
         word: action.payload,
       };
 
-    case wordDefinitionTypes.RESET_WORD_DEFINITION_FORM:
+    case wordTypes.RESET_WORD_DEFINITION_FORM:
       return {
         ...state,
         word: "",
         selectedLanguage: "",
-        errorGetAllFavoriteWords: "",
-        dataAllFavoriteWords: [],
+        errorGetAllWords: "",
+        dataAllWords: [],
       };
 
-    case wordDefinitionTypes.CHANGE_TOAST_STATE:
+    case wordTypes.CHANGE_TOAST_STATE:
       return {
         ...state,
         showToast: !action.payload,
@@ -159,4 +168,4 @@ const wordDefinitionReducer = (state = initialState, action) => {
   }
 };
 
-export default wordDefinitionReducer;
+export default wordReducer;

@@ -1,4 +1,4 @@
-import wordDefinitionTypes from "./wordDefinitionTypes";
+import wordTypes from "./wordTypes";
 import axios from "axios";
 
 let URL_API = "";
@@ -12,20 +12,20 @@ const URL_API_DICTIONARY = process.env.REACT_APP_URL_API_DICTIONARY;
 
 export const fetchDataRequest = () => {
   return {
-    type: wordDefinitionTypes.FETCH_DATA_REQUEST,
+    type: wordTypes.FETCH_DATA_REQUEST,
   };
 };
 
 export const fetchDataSuccess = (data) => {
   return {
-    type: wordDefinitionTypes.FETCH_DATA_SUCCESS,
+    type: wordTypes.FETCH_DATA_SUCCESS,
     payload: data,
   };
 };
 
 export const fetchDataFail = (error) => {
   return {
-    type: wordDefinitionTypes.FETCH_DATA_FAIL,
+    type: wordTypes.FETCH_DATA_FAIL,
     payload: error,
   };
 };
@@ -53,18 +53,18 @@ export const fetchWordDefinition = (language, word) => {
 
 // Add a new favorite word
 
-export const addFavoriteWordRequested = () => {
+export const addWordRequested = () => {
   return {
-    type: wordDefinitionTypes.ADD_FAVORITE_WORD_REQUEST,
+    type: wordTypes.ADD_FAVORITE_WORD_REQUEST,
   };
 };
 
-export const addFavoriteWord = (word, partOfSpeech, def, language, userId) => {
+export const addWord = (word, partOfSpeech, def, language, userId) => {
   const example = def.example;
   const definition = def.definition;
 
   return (dispatch) => {
-    dispatch(addFavoriteWordRequested());
+    dispatch(addWordRequested());
 
     axios
       .post(URL_API + "/create-word", {
@@ -76,39 +76,39 @@ export const addFavoriteWord = (word, partOfSpeech, def, language, userId) => {
         userId,
       })
       .then((_response) => {
-        dispatch(addFavoriteWordSuccess());
-        dispatch(getAllUserFavoriteWords(userId));
+        dispatch(addWordSuccess());
+        dispatch(getAllUserWords(userId));
       })
       .catch((error) => {
-        dispatch(addFavoriteWordFail(error));
+        dispatch(addWordFail(error));
       });
   };
 };
 
-export const addFavoriteWordSuccess = () => {
+export const addWordSuccess = () => {
   return {
-    type: wordDefinitionTypes.ADD_FAVORITE_WORD_SUCCESS,
+    type: wordTypes.ADD_FAVORITE_WORD_SUCCESS,
   };
 };
 
-export const addFavoriteWordFail = (error) => {
+export const addWordFail = (error) => {
   return {
-    type: wordDefinitionTypes.ADD_FAVORITE_WORD_FAIL,
+    type: wordTypes.ADD_FAVORITE_WORD_FAIL,
     payload: error,
   };
 };
 
 // Remove a favorite word
 
-export const removeFavoriteWordRequested = () => {
+export const removeWordRequested = () => {
   return {
-    type: wordDefinitionTypes.REMOVE_FAVORITE_WORD_REQUEST,
+    type: wordTypes.REMOVE_FAVORITE_WORD_REQUEST,
   };
 };
 
-export const removeFavoriteWord = (wordId, userId) => {
+export const removeWord = (wordId, userId) => {
   return (dispatch) => {
-    dispatch(removeFavoriteWordRequested());
+    dispatch(removeWordRequested());
 
     axios
       .post(URL_API + "/remove-word/" + wordId, {
@@ -116,61 +116,61 @@ export const removeFavoriteWord = (wordId, userId) => {
         userId,
       })
       .then((_response) => {
-        dispatch(removeFavoriteWordSuccess());
-        dispatch(getAllUserFavoriteWords(userId));
+        dispatch(removeWordSuccess());
+        dispatch(getAllUserWords(userId));
       })
       .catch((error) => {
-        dispatch(removeFavoriteWordFail(error));
+        dispatch(removeWordFail(error));
       });
   };
 };
 
-export const removeFavoriteWordSuccess = () => {
+export const removeWordSuccess = () => {
   return {
-    type: wordDefinitionTypes.REMOVE_FAVORITE_WORD_SUCCESS,
+    type: wordTypes.REMOVE_FAVORITE_WORD_SUCCESS,
   };
 };
 
-export const removeFavoriteWordFail = (error) => {
+export const removeWordFail = (error) => {
   return {
-    type: wordDefinitionTypes.REMOVE_FAVORITE_WORD_FAIL,
+    type: wordTypes.REMOVE_FAVORITE_WORD_FAIL,
     payload: error,
   };
 };
 
 // Get all users's favorite words
 
-export const getAllUserFavoriteWordsRequested = () => {
+export const getAllUserWordsRequested = () => {
   return {
-    type: wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_REQUEST,
+    type: wordTypes.GET_ALL_USER_FAVORITE_WORD_REQUEST,
   };
 };
 
-export const getAllUserFavoriteWords = (userId) => {
+export const getAllUserWords = (userId) => {
   return (dispatch) => {
-    dispatch(getAllUserFavoriteWordsRequested());
+    dispatch(getAllUserWordsRequested());
 
     axios
-      .get(URL_API + "/get-favorites/" + userId)
+      .get(URL_API + "/get-words/" + userId)
       .then((response) => {
-        dispatch(getAllUserFavoriteWordsSuccess(response.data));
+        dispatch(getAllUserWordsSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(getAllUserFavoriteWordsFail(error));
+        dispatch(getAllUserWordsFail(error));
       });
   };
 };
 
-export const getAllUserFavoriteWordsSuccess = (data) => {
+export const getAllUserWordsSuccess = (data) => {
   return {
-    type: wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_SUCCESS,
+    type: wordTypes.GET_ALL_USER_FAVORITE_WORD_SUCCESS,
     payload: data,
   };
 };
 
-export const getAllUserFavoriteWordsFail = (error) => {
+export const getAllUserWordsFail = (error) => {
   return {
-    type: wordDefinitionTypes.GET_ALL_USER_FAVORITE_WORD_FAIL,
+    type: wordTypes.GET_ALL_USER_FAVORITE_WORD_FAIL,
     payload: error,
   };
 };
@@ -179,27 +179,27 @@ export const getAllUserFavoriteWordsFail = (error) => {
 
 export const changeSelectedLanguage = (language) => {
   return {
-    type: wordDefinitionTypes.CHANGE_SELECTED_LANGUAGE,
+    type: wordTypes.CHANGE_SELECTED_LANGUAGE,
     payload: language,
   };
 };
 
 export const changeWord = (word) => {
   return {
-    type: wordDefinitionTypes.CHANGE_WORD,
+    type: wordTypes.CHANGE_WORD,
     payload: word,
   };
 };
 
 export const resetWordDefinitionForm = () => {
   return {
-    type: wordDefinitionTypes.RESET_WORD_DEFINITION_FORM,
+    type: wordTypes.RESET_WORD_DEFINITION_FORM,
   };
 };
 
 export const setShowToast = (props) => {
   return {
-    type: wordDefinitionTypes.CHANGE_TOAST_STATE,
+    type: wordTypes.CHANGE_TOAST_STATE,
     payload: props,
   };
 };

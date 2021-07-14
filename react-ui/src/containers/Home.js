@@ -20,71 +20,46 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
 import {
-  addFavoriteWord,
+  addWord,
   fetchWordDefinition,
   changeWord,
   changeSelectedLanguage,
-  getAllUserFavoriteWords,
-  removeFavoriteWord,
+  getAllUserWords,
+  removeWord,
   setShowToast,
 } from "../redux";
 
 const Home = () => {
   const { user: currentUser } = useSelector((state) => state.user);
 
-  const languages = useSelector((state) => state.wordDefinition.languages);
-  const languagesAPI = useSelector(
-    (state) => state.wordDefinition.languagesAPI
-  );
-  const countryFlags = useSelector(
-    (state) => state.wordDefinition.countryFlags
+  const { languages, languagesAPI, countryFlags, selectedLanguage } =
+    useSelector((state) => state.word);
+
+  const { loading, word, data, error } = useSelector((state) => state.word);
+
+  const { loadingAddWord, successAddWord, errorAddWord } = useSelector(
+    (state) => state.word
   );
 
-  const loading = useSelector((state) => state.wordDefinition.loading);
-  const selectedLanguage = useSelector(
-    (state) => state.wordDefinition.selectedLanguage
-  );
-  const word = useSelector((state) => state.wordDefinition.word);
-  const data = useSelector((state) => state.wordDefinition.data);
-  const error = useSelector((state) => state.wordDefinition.error);
-
-  const loadingAddWord = useSelector(
-    (state) => state.wordDefinition.loadingAddWord
-  );
-  const successAddWord = useSelector(
-    (state) => state.wordDefinition.successAddWord
-  );
-  const errorAddWord = useSelector(
-    (state) => state.wordDefinition.errorAddWord
+  const { loadingRemoveWord, successRemoveWord, errorRemoveWord } = useSelector(
+    (state) => state.word
   );
 
-  const loadingRemoveWord = useSelector(
-    (state) => state.wordDefinition.loadingRemoveWord
-  );
-  const successRemoveWord = useSelector(
-    (state) => state.wordDefinition.successRemoveWord
-  );
-  const errorRemoveWord = useSelector(
-    (state) => state.wordDefinition.errorRemoveWord
-  );
+  const dataAllWords = useSelector((state) => state.word.dataAllWords);
 
-  const dataAllFavoriteWords = useSelector(
-    (state) => state.wordDefinition.dataAllFavoriteWords
-  );
-
-  const showToast = useSelector((state) => state.wordDefinition.showToast);
+  const showToast = useSelector((state) => state.word.showToast);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(getAllUserFavoriteWords(currentUser.id));
+      dispatch(getAllUserWords(currentUser.id));
     }
   }, []);
 
-  const displayButtonFavorites = (meaning, definition) => {
-    let result = dataAllFavoriteWords.find(
-      (word) => word.FavoriteWord.definition === definition.definition
+  const displayButton = (meaning, definition) => {
+    let result = dataAllWords.find(
+      (word) => word.Word.definition === definition.definition
     );
 
     if (
@@ -100,11 +75,7 @@ const Home = () => {
         >
           <Button
             variant="white"
-            onClick={() =>
-              dispatch(
-                removeFavoriteWord(result.FavoriteWordId, currentUser.id)
-              )
-            }
+            onClick={() => dispatch(removeWord(result.WordId, currentUser.id))}
           >
             <FontAwesomeIcon className="text-warning" icon={faStarSolid} />
           </Button>
@@ -120,7 +91,7 @@ const Home = () => {
             variant="white"
             onClick={() =>
               dispatch(
-                addFavoriteWord(
+                addWord(
                   word,
                   meaning.partOfSpeech,
                   definition,
@@ -249,10 +220,7 @@ const Home = () => {
                               <li key={index}>
                                 <>
                                   {currentUser
-                                    ? displayButtonFavorites(
-                                        meaning,
-                                        definition
-                                      )
+                                    ? displayButton(meaning, definition)
                                     : null}
                                   <u className="text-success">
                                     Definition {index + 1}:

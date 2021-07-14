@@ -56,15 +56,15 @@ db.User.belongsToMany(db.Role, {
 });
 
 // Many users can have many favorite words
-db.FavoriteWord.belongsToMany(db.User, {
-  through: "users_favoritewords",
-  foreignKey: "FavoriteWordId",
+db.Word.belongsToMany(db.User, {
+  through: "users_words",
+  foreignKey: "WordId",
   otherKey: "UserId",
 });
-db.User.belongsToMany(db.FavoriteWord, {
-  through: "users_favoritewords",
+db.User.belongsToMany(db.Word, {
+  through: "users_words",
   foreignKey: "UserId",
-  otherKey: "FavoriteWordId",
+  otherKey: "WordId",
 });
 
 db.ROLES = ["user", "moderator", "admin"];

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -97,8 +98,11 @@ const SignUp = () => {
   return (
     <Container className="my-5">
       <Row className="mb-5">
-        <Col>
-          <h1 className="text-success text-center">Sign Up to the app</h1>
+        <Col className="text-center">
+          <h1 className="text-success">Sign Up</h1>
+          <p className="lead">You will be able to access these features: </p>
+          <p className="m-0">Find a definition also in French and Spanish</p>
+          <p className="m-0">Save a word definition in your favorites</p>
         </Col>
       </Row>
       <Row>
@@ -109,7 +113,7 @@ const SignUp = () => {
                 <div className="form-group">
                   <Input
                     type="text"
-                    className="form-control"
+                    className="form-control mb-3"
                     name="username"
                     value={username}
                     placeholder="Username"
@@ -117,11 +121,10 @@ const SignUp = () => {
                     validations={[required, vusername]}
                   />
                 </div>
-
                 <div className="form-group">
                   <Input
                     type="text"
-                    className="form-control"
+                    className="form-control mb-3"
                     name="email"
                     value={email}
                     placeholder="Email"
@@ -129,11 +132,10 @@ const SignUp = () => {
                     validations={[required, validEmail]}
                   />
                 </div>
-
                 <div className="form-group">
                   <Input
                     type="password"
-                    className="form-control"
+                    className="form-control mb-3"
                     name="password"
                     value={password}
                     placeholder="Password"
@@ -141,16 +143,33 @@ const SignUp = () => {
                     validations={[required, vpassword]}
                   />
                 </div>
-
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>
                 </div>
               </div>
             )}
 
-            {message && (
+            {/* {message && (
               <div className="form-group">
                 <Alert variant={!successful ? "danger" : null}>{message}</Alert>
+              </div>
+            )} */}
+            {message && successful && (
+              <div>
+                <Alert variant="success">{message}</Alert>
+                <h4 className="text-center">
+                  Now you can go{" "}
+                  <Link to="/login" className="text-success">
+                    login
+                  </Link>
+                </h4>
+              </div>
+            )}
+
+            {message && !successful && (
+              <div>
+                <Alert variant="danger">{message}</Alert>
+                <p>Please try again later.</p>
               </div>
             )}
             <CheckButton style={{ display: "none" }} ref={checkBtn} />

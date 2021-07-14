@@ -1,7 +1,7 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
+const userController = require("../controllers").user;
 
-module.exports = function (app) {
+module.exports = (app) => {
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,19 +10,21 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/all", controller.allAccess);
+  app.get("/api/all", userController.allAccess);
 
-  app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
+  app.get("/api/user", [authJwt.verifyToken], userController.userBoard);
 
   app.get(
-    "/api/mod",
+    "/api/modo",
     [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    userController.moderatorBoard
   );
 
   app.get(
     "/api/admin",
     [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    userController.adminBoard
   );
+
+  app.put("/api/user/change-email", userController.changeEmail);
 };

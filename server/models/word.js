@@ -1,20 +1,20 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class FavoriteWord extends Model {
+  class Word extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      FavoriteWord.belongsToMany(models.User, {
+      Word.belongsToMany(models.User, {
         foreignKey: "UserdId",
-        through: "users_favoritewords",
+        through: "users_words",
       });
     }
   }
-  FavoriteWord.init(
+  Word.init(
     {
       word: DataTypes.STRING,
       language: DataTypes.STRING,
@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "FavoriteWord",
+      modelName: "Word",
     }
   );
-  return FavoriteWord;
+  return Word;
 };

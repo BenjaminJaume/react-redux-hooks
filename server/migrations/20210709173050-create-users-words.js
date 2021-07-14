@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users_favoritewords", {
+    await queryInterface.createTable("users_words", {
       UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -9,11 +9,11 @@ module.exports = {
         references: { model: "Users", key: "id" },
         onDelete: "CASCADE",
       },
-      FavoriteWordId: {
+      WordId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-        references: { model: "FavoriteWords", key: "id" },
+        references: { model: "Words", key: "id" },
         onDelete: "CASCADE",
       },
       createdAt: {
@@ -27,6 +27,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("users_favoritewords");
+    await queryInterface.dropTable("users_words");
   },
 };

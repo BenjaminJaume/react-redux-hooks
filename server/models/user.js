@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.belongsToMany(models.FavoriteWord, {
-        foreignKey: "FavoriteWordId",
-        through: "users_favoritewords",
+      User.belongsToMany(models.Word, {
+        foreignKey: "WordId",
+        through: "users_words",
         onDelete: "CASCADE",
       });
     }

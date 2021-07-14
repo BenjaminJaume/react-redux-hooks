@@ -6,7 +6,7 @@ module.exports = {
   create(req, res) {
     const { word, language, partOfSpeech, definition, example, userId } =
       req.body;
-    return db.FavoriteWord.create({
+    return db.Word.create({
       word: word,
       language: language,
       partOfSpeech: partOfSpeech,
@@ -14,13 +14,13 @@ module.exports = {
       example: example,
     })
       .then((response) => {
-        db.users_favoritewords
+        db.users_words
           .create(
             {
               UserId: userId,
-              FavoriteWordId: response.id,
+              WordId: response.id,
             },
-            { fields: ["UserId", "FavoriteWordId"] }
+            { fields: ["UserId", "WordId"] }
           )
           .then((response) => {
             // console.log(response);
@@ -42,15 +42,15 @@ module.exports = {
     const { userId } = req.body;
     const { wordId } = req.params;
 
-    return db.users_favoritewords
+    return db.users_words
       .destroy({
         where: {
           UserId: userId,
-          FavoriteWordId: wordId,
+          WordId: wordId,
         },
       })
       .then(() => {
-        db.FavoriteWord.destroy({
+        db.Word.destroy({
           where: {
             id: wordId,
           },
@@ -71,14 +71,14 @@ module.exports = {
   },
 
   listAll(req, res) {
-    return db.users_favoritewords
+    return db.users_words
       .findAll({
         where: {
           UserId: req.params.userId,
         },
         include: [
           {
-            model: db.FavoriteWord,
+            model: db.Word,
             attributes: {
               exclude: ["createdAt", "password", "updatedAt"],
             },
