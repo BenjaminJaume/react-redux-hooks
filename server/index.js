@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
-const logger = require("morgan");
+// const logger = require("morgan");
 const cors = require("cors");
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -27,7 +27,7 @@ if (!isDev && cluster.isMaster) {
 
   app.use(cors());
 
-  app.use(logger("dev"));
+  // app.use(logger("dev"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 

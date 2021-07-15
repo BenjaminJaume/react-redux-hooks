@@ -47,11 +47,11 @@ db.Sequelize = Sequelize;
 db.Role.belongsToMany(db.User, {
   through: "users_roles",
   foreignKey: "RoleId",
-  otherKey: "UserId",
+  otherKey: "userId",
 });
 db.User.belongsToMany(db.Role, {
   through: "users_roles",
-  foreignKey: "UserId",
+  foreignKey: "userId",
   otherKey: "RoleId",
 });
 
@@ -59,11 +59,11 @@ db.User.belongsToMany(db.Role, {
 db.Word.belongsToMany(db.User, {
   through: "users_words",
   foreignKey: "WordId",
-  otherKey: "UserId",
+  otherKey: "userId",
 });
 db.User.belongsToMany(db.Word, {
   through: "users_words",
-  foreignKey: "UserId",
+  foreignKey: "userId",
   otherKey: "WordId",
 });
 

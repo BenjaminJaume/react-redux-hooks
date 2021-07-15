@@ -155,7 +155,7 @@ const SignUp = () => {
               </div>
             )} */}
             {message && successful && (
-              <div>
+              <div className="mt-3">
                 <Alert variant="success">{message}</Alert>
                 <h4 className="text-center">
                   Now you can go{" "}
@@ -167,7 +167,7 @@ const SignUp = () => {
             )}
 
             {message && !successful && (
-              <div>
+              <div className="mt-3">
                 <Alert variant="danger">{message}</Alert>
                 <p>Please try again later.</p>
               </div>

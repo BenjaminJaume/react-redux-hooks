@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       users_words.belongsTo(models.User, {
-        foreignKey: "UserId",
+        foreignKey: "userId",
       });
       users_words.belongsTo(models.Word, {
         foreignKey: "WordId",
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   users_words.init(
     {
-      UserId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       WordId: DataTypes.INTEGER,
     },
     {

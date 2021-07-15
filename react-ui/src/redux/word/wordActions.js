@@ -1,13 +1,7 @@
 import wordTypes from "./wordTypes";
 import axios from "axios";
 
-let URL_API = "";
-const isDev = process.env.NODE_ENV !== "production";
-
-isDev
-  ? (URL_API = process.env.REACT_APP_URL_API_DEV)
-  : (URL_API = process.env.REACT_APP_URL_API);
-
+const URL_API = process.env.REACT_APP_URL_API;
 const URL_API_DICTIONARY = process.env.REACT_APP_URL_API_DICTIONARY;
 
 export const fetchDataRequest = () => {

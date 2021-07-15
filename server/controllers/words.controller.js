@@ -17,10 +17,10 @@ module.exports = {
         db.users_words
           .create(
             {
-              UserId: userId,
+              userId: userId,
               WordId: response.id,
             },
-            { fields: ["UserId", "WordId"] }
+            { fields: ["userId", "WordId"] }
           )
           .then((response) => {
             // console.log(response);
@@ -45,7 +45,7 @@ module.exports = {
     return db.users_words
       .destroy({
         where: {
-          UserId: userId,
+          userId: userId,
           WordId: wordId,
         },
       })
@@ -74,7 +74,7 @@ module.exports = {
     return db.users_words
       .findAll({
         where: {
-          UserId: req.params.userId,
+          userId: req.params.userId,
         },
         include: [
           {

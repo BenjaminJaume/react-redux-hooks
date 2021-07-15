@@ -1,11 +1,7 @@
 import manageTypes from "./manageTypes";
 import axios from "axios";
 
-let URL_API = "";
-
-process.env.NODE_ENV !== "production"
-  ? (URL_API = process.env.REACT_APP_URL_API_DEV)
-  : (URL_API = process.env.REACT_APP_URL_API);
+const URL_API = process.env.REACT_APP_URL_API;
 
 // Add a new favorite word
 

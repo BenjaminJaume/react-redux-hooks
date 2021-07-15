@@ -1,12 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-let URL_API = "";
-const isDev = process.env.NODE_ENV !== "production";
-
-isDev
-  ? (URL_API = process.env.REACT_APP_URL_API_DEV)
-  : (URL_API = process.env.REACT_APP_URL_API);
+const URL_API = process.env.REACT_APP_URL_API;
 
 const getPublicContent = () => {
   return axios.get(URL_API + "/all");

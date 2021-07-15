@@ -7,7 +7,7 @@ npm-debug.log
 *.dev
 .DS_Store
 .prettierrc
-help.md
+help_heroku.md
 svr-old
 
 # Docker

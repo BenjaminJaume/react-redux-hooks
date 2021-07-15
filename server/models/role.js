@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Role.belongsToMany(models.User, {
-        foreignKey: "UserId",
+        foreignKey: "userId",
         through: "Users_Roles",
         onDelete: "CASCADE",
       });
